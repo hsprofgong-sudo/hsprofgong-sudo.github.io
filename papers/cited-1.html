@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forget-SVGD: Particle-Based Bayesian Federated Unlearning — Jinu Gong</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title"><a href="../index.html">Jinu Gong</a></h1>
+      <p class="site-subtitle">— research notes &amp; paper reviews —</p>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="../recent.html">Recent</a>
+        <a href="../highlights.html">Highlights</a>
+        <a href="../about.html">About</a>
+        <a href="../archive.html">Publications</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="review">
+      <header class="review-head">
+        <div class="kicker">Highlights · Most Cited #1</div>
+        <h1>Forget-SVGD: Particle-Based Bayesian Federated Unlearning</h1>
+        <p class="authors"><em>J. Gong</em>, J. Kang, O. Simeone, R. Kassab</p>
+        <p class="venue">IEEE Data Science and Learning Workshop · 2022 · cited 40</p>
+        <div class="badges">
+          <span>Federated Unlearning</span>
+          <span>Bayesian</span>
+          <span>SVGD</span>
+          <span>Privacy</span>
+        </div>
+      </header>
+
+      <div class="review-tldr">
+        <strong>TL;DR</strong>
+        <p>
+          연합학습으로 학습된 베이지안 모델에서 특정 클라이언트의 영향만을
+          “골라내어 잊는” 방법을 Stein Variational Gradient Descent(SVGD)의
+          역방향(reverse) 갱신으로 구현한다. 단순한 재학습 없이도, 입자 집합을
+          이동시켜 사후분포(posterior)에서 해당 클라이언트의 기여를 제거한다.
+        </p>
+      </div>
+
+      <h2>1. 문제 의식 — “잊혀질 권리”와 연합학습</h2>
+      <p>
+        GDPR을 비롯한 데이터 규제의 흐름은, 사용자가 자신의 데이터가 학습된
+        모델에서 제거되기를 요구할 수 있도록 만들었다. 그러나 분산 환경에서
+        한 사용자의 데이터만을 제거하기 위해 전체 모델을 처음부터 다시
+        학습시키는 것은 비현실적이다. 더 나아가, 연합학습에서는 서버가
+        원본 데이터를 본 적이 없기 때문에, 무엇을 어떻게 잊어야 하는지조차
+        자명하지 않다.
+      </p>
+
+      <h2>2. 핵심 아이디어 — Reverse-SVGD</h2>
+      <p>
+        SVGD는 사후분포에 접근하기 위해 일군의 입자(particles)를 이동시키는
+        방법이다. 입자의 흐름은 RKHS 위의 최적 방향, 즉 사후분포의 score를
+        근사하는 방향으로 갱신된다. 본 연구는 이 흐름을 <em>거꾸로 돌릴 수
+        있다</em>는 점에 주목한다.
+      </p>
+
+      <pre><code># SVGD 갱신 (학습)
+particles ← particles + ε · ϕ_post(particles)
+
+# Forget-SVGD 갱신 (언러닝)
+particles ← particles − ε · ϕ_client_k(particles)
+            # 클라이언트 k의 likelihood가 만드는 흐름의 역방향</code></pre>
+
+      <p>
+        직관적으로, 잊고자 하는 클라이언트가 사후분포에 가했던 “끌어당김”을
+        역방향으로 풀어내는 셈이다. 이때 입자 표현은 가우시안 같은 단일
+        모수 분포의 한계를 넘어서 복잡한 사후분포까지 다룰 수 있게 해준다.
+      </p>
+
+      <blockquote>
+        학습이 사후분포를 “좁히는” 과정이라면, 언러닝은 그 좁힘 중
+        한 갈래를 다시 “풀어주는” 과정이다.
+      </blockquote>
+
+      <h2>3. 실험과 결과</h2>
+      <ul>
+        <li>벤치마크 분류 과제 위에서, Forget-SVGD는 “해당 클라이언트
+          데이터만 빠진 모델”을 재학습한 경우와 매우 가까운 분포를
+          유의미하게 적은 계산으로 복원한다.</li>
+        <li>Membership inference attack에 대한 취약성도 함께 감소한다 —
+          즉, 단순히 “잊은 척”이 아니라 통계적 흔적이 실제로 줄어든다.</li>
+        <li>다수 클라이언트의 순차적 언러닝에서도 안정적으로 동작한다.</li>
+      </ul>
+
+      <h2>4. 의의와 영향</h2>
+      <p>
+        이 논문은 현재까지 가장 많이 인용된 본인의 연구이며,
+        “particle-based Bayesian federated unlearning”이라는 키워드 자체를
+        후속 연구의 출발점으로 자리잡게 했다. 베이지안 추론과 데이터 권리
+        — 즉, 확률론과 윤리/규제 — 의 교차점에 놓인 작업이라는 점에서
+        본인에게도 가장 의미 있는 결과 중 하나이다.
+      </p>
+
+      <h3>다시 본다면</h3>
+      <p>
+        이 논문 이후의 자연스러운 질문은 두 가지였다 — “이 흐름을 어떻게
+        압축할 것인가?”는 [[cited-3]] (Compressed Particle-Based FL)에서,
+        “중앙 서버 없는 환경에서도 가능한가?”는 [[cited-2]] (Bayesian
+        Variational Decentralized)에서 부분적으로 답을 시도했다. 그 답들은
+        아직도 충분히 마무리되지 않은, 살아있는 질문들이다.
+      </p>
+
+      <hr />
+
+      <h2>Cite</h2>
+      <div class="bibtex">@inproceedings{gong2022forgetsvgd,
+  title     = {Forget-SVGD: Particle-Based Bayesian Federated Unlearning},
+  author    = {Gong, Jinu and Kang, Joonhyuk and Simeone, Osvaldo and Kassab, Rahif},
+  booktitle = {IEEE Data Science and Learning Workshop (DSLW)},
+  year      = {2022}
+}</div>
+
+      <div class="review-footer">
+        <a href="../highlights.html">← Back to Highlights</a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="social">
+        <a href="https://scholar.google.com/citations?user=gPl6uq4AAAAJ" target="_blank" rel="noopener">Scholar</a> ·
+        <a href="https://github.com/hsprofgong-sudo">GitHub</a> ·
+        <a href="mailto:hsprof.gong@gmail.com">Email</a>
+      </div>
+      <div>© 2026 Jinu Gong · Hansung University · Built by hand.</div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Revisit the Stability of Vanilla Federated Learning — Jinu Gong</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title"><a href="../index.html">Jinu Gong</a></h1>
+      <p class="site-subtitle">— research notes &amp; paper reviews —</p>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="../recent.html">Recent</a>
+        <a href="../highlights.html">Highlights</a>
+        <a href="../about.html">About</a>
+        <a href="../archive.html">Publications</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="review">
+      <header class="review-head">
+        <div class="kicker">Recent · Paper Review #2</div>
+        <h1>Revisit the Stability of Vanilla Federated Learning under Diverse Conditions</h1>
+        <p class="authors">Y. Lee, <em>J. Gong</em>, S. Choi, J. Kang</p>
+        <p class="venue">MICCAI International Workshop · 2025 · cited 12</p>
+        <div class="badges">
+          <span>Federated Learning</span>
+          <span>Medical Imaging</span>
+          <span>Empirical Study</span>
+          <span>FedAvg</span>
+        </div>
+      </header>
+
+      <div class="review-tldr">
+        <strong>TL;DR</strong>
+        <p>
+          “FedAvg는 약하다”는 통념이 의료 영상 분류 환경에서도 그대로
+          유효한지 다시 묻는다. 다양한 이질성(heterogeneity)과 데이터 분할
+          조건에서 vanilla FedAvg가 의외로 견고하게 작동하며, 최근 제안된
+          정교한 변형들이 항상 우위를 점하지는 않음을 실증한다.
+        </p>
+      </div>
+
+      <h2>1. 동기 — 왜 다시 vanilla인가</h2>
+      <p>
+        연합학습 문헌은 지난 몇 년간 FedAvg의 약점을 보완하기 위한 수많은
+        변형들 — FedProx, SCAFFOLD, MOON, FedNova 등 — 으로 가득 차 있다.
+        대부분의 비교 실험은 통제된 합성 분포 위에서 진행되며, 새 방법이
+        “vanilla보다 낫다”는 결론을 내리곤 한다. 그러나 의료 영상이라는
+        실제 도메인에서, 그 결론은 얼마나 견고할까?
+      </p>
+
+      <h2>2. 실험 설계</h2>
+      <p>
+        본 연구는 다음과 같은 축으로 광범위한 조합을 실험한다.
+      </p>
+
+      <ul>
+        <li><strong>데이터 이질성:</strong> 클라이언트 간 클래스 분포의 비대칭(non-IID 수준)</li>
+        <li><strong>클라이언트 수:</strong> 소규모(5~10)부터 대규모(100+)</li>
+        <li><strong>참여율:</strong> 라운드별 클라이언트 샘플링 비율</li>
+        <li><strong>로컬 에폭 수:</strong> 통신 비용과 클라이언트 드리프트의 균형</li>
+        <li><strong>모델 크기:</strong> 가벼운 CNN부터 ResNet 계열까지</li>
+      </ul>
+
+      <p>
+        모든 조합에 대해 vanilla FedAvg와 주요 변형들을 동일 평가
+        프로토콜로 비교한다. 의료 영상 데이터셋(예: 다기관 CT/MRI 분류 벤치마크)을
+        사용함으로써, 결과가 합성 환경의 인공물이 아님을 보인다.
+      </p>
+
+      <h2>3. 핵심 관찰</h2>
+
+      <blockquote>
+        많은 “FedAvg 대비 우위”는 하이퍼파라미터 튜닝의 산물이지,
+        방법론 자체의 본질적 우위가 아닌 경우가 많다.
+      </blockquote>
+
+      <ul>
+        <li>적절한 학습률 스케줄과 로컬 에폭 수만 조정해도, FedAvg는
+          “이론적으로 더 나은” 변형들과 동등하거나 우월한 성능을 보인다.</li>
+        <li>오히려 일부 변형은 의료 영상의 클래스 불균형 환경에서
+          오차가 커지는 경향을 보인다.</li>
+        <li>방법론 비교의 공정성은 “같은 코드, 같은 시드, 같은 튜닝 예산”에
+          달려 있으며, 그렇지 않으면 결론은 쉽게 뒤집힌다.</li>
+      </ul>
+
+      <h2>4. 시사점</h2>
+      <p>
+        이 논문은 FedAvg의 부활을 선언하는 글이 아니다. 오히려 연합학습
+        벤치마크가 가져야 할 <em>방법론적 정직성</em>에 대한 호소에 가깝다.
+        새로운 방법이 정말 새로운 것인지, 아니면 익숙한 도구를 더 잘
+        세팅한 결과인지 — 그 질문이 자주 잊힌다.
+      </p>
+
+      <h3>다시 본다면</h3>
+      <p>
+        리뷰어들의 자주 묻는 질문은 “그렇다면 vanilla로 충분하다는 말인가?”
+        였다. 정확한 대답은 “충분한 적이 있고, 그것은 보고할 가치가 있다”에
+        가깝다. 후속 작업에서는 이 관찰을 비의료(non-medical) 도메인까지
+        확장해, 결과의 일반화 범위를 더 명확히 그어보고자 한다.
+      </p>
+
+      <hr />
+
+      <h2>Cite</h2>
+      <div class="bibtex">@inproceedings{lee2025revisit,
+  title     = {Revisit the Stability of Vanilla Federated Learning under Diverse Conditions},
+  author    = {Lee, Y. and Gong, J. and Choi, S. and Kang, J.},
+  booktitle = {International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI) Workshop},
+  year      = {2025}
+}</div>
+
+      <div class="review-footer">
+        <a href="../recent.html">← Back to Recent</a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="social">
+        <a href="https://scholar.google.com/citations?user=gPl6uq4AAAAJ" target="_blank" rel="noopener">Scholar</a> ·
+        <a href="https://github.com/hsprofgong-sudo">GitHub</a> ·
+        <a href="mailto:hsprof.gong@gmail.com">Email</a>
+      </div>
+      <div>© 2026 Jinu Gong · Hansung University · Built by hand.</div>
+    </div>
+  </footer>
+
+</body>
+</html>

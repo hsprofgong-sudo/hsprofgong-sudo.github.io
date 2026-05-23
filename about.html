@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — The Quiet Compiler</title>
+  <title>About — Jinu Gong</title>
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
 
   <header class="site-header">
     <div class="container">
-      <h1 class="site-title"><a href="index.html">The Quiet Compiler</a></h1>
-      <p class="site-subtitle">— a technical journal on code, systems, and the spaces between —</p>
+      <h1 class="site-title"><a href="index.html">Jinu Gong</a></h1>
+      <p class="site-subtitle">— research notes &amp; paper reviews —</p>
       <nav class="site-nav">
         <a href="index.html">Home</a>
+        <a href="recent.html">Recent</a>
+        <a href="highlights.html">Highlights</a>
         <a href="about.html" class="active">About</a>
-        <a href="archive.html">Archive</a>
-        <a href="mailto:hsprof.gong@gmail.com">Contact</a>
+        <a href="archive.html">Publications</a>
       </nav>
     </div>
   </header>
@@ -24,49 +25,63 @@
   <main class="container about-page">
 
     <h1>About</h1>
-    <p class="lead">기록은 사유의 가장 정직한 형태입니다.</p>
+    <p class="lead">연구는 “덜 틀리기 위한” 가장 정직한 방법입니다.</p>
 
     <p>
-      이 곳은 개발자이자 한 사람의 학습자로서, 매일 부딪히는 문제와 그 안에서
-      발견한 작은 통찰을 정리하는 공간입니다. 화려한 트렌드의 요약본보다는
-      오래된 책장처럼 천천히 쌓여가는 글을 지향합니다.
+      저는 한성대학교 조교수로 재직 중이며, 분산학습의 신뢰성 — 즉,
+      <strong>연합학습(federated learning)</strong>·<strong>연합 언러닝(federated unlearning)</strong>·
+      <strong>베이지안 추론(Bayesian inference)</strong>의 교차점에서 연구를 수행합니다.
+      동시에 5G/6G 무선 통신의 보안과 성능 분석에 관한 작업도 함께 이어가고 있습니다.
     </p>
 
     <div class="about-grid">
+
       <div class="about-card">
-        <h3>관심 분야</h3>
+        <h3>Affiliation</h3>
+        <p>
+          Assistant Professor, Hansung University<br />
+          한성대학교 · 서울, 대한민국
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h3>Research Topics</h3>
         <ul>
-          <li>시스템 프로그래밍과 컴파일러 설계</li>
-          <li>분산 시스템과 합의 알고리즘</li>
-          <li>프로그래밍 언어 이론 (PLT)</li>
-          <li>개발자의 글쓰기와 문해력</li>
+          <li>Federated learning &amp; federated unlearning</li>
+          <li>Bayesian methods (variational inference, SVGD)</li>
+          <li>Physical-layer security in 5G/6G</li>
+          <li>Trustworthy AI in safety-critical domains (medical, military)</li>
+          <li>Compression &amp; communication-efficient distributed learning</li>
         </ul>
       </div>
 
       <div class="about-card">
-        <h3>이 블로그에서 다루는 것</h3>
+        <h3>Selected Collaborators</h3>
+        <ul>
+          <li>Joonhyuk Kang (Hansung University)</li>
+          <li>Osvaldo Simeone (King’s College London)</li>
+          <li>Rahif Kassab (KCL)</li>
+          <li>Yuna Lee, Hyunjae Lee, and many talented students.</li>
+        </ul>
+      </div>
+
+      <div class="about-card">
+        <h3>Why this site exists</h3>
         <p>
-          기술 그 자체에 대한 글뿐 아니라, 기술을 만드는 사람들과
-          그들이 부딪히는 결정들에 대한 글도 함께 씁니다.
-          짧은 팁보다는, 한 편의 에세이에 가깝습니다.
+          이 곳은 단순한 CV가 아니라, 제 논문들을 다시 읽으며 정리하는 공간입니다.
+          각 논문의 동기, 한계, 그리고 지금 시점에서 다시 본다면 무엇을 다르게
+          썼을지를 함께 적어두었습니다. 연구실 후배와 학생들에게도 도움이 되기를 바라며.
         </p>
       </div>
 
       <div class="about-card">
-        <h3>연락처</h3>
+        <h3>Contact</h3>
         <p>
-          글에 대한 의견, 정중한 반박, 또는 조용한 공감은 언제든 환영합니다.<br />
+          공동 연구, 학생 지도, 또는 논문에 대한 정중한 비판은 언제든 환영합니다.<br />
           <a href="mailto:hsprof.gong@gmail.com">hsprof.gong@gmail.com</a>
         </p>
       </div>
 
-      <div class="about-card">
-        <h3>저작권에 대하여</h3>
-        <p>
-          이 곳의 모든 글은 별도 표기가 없는 한 자유롭게 인용할 수 있습니다.
-          다만, 인용 시에는 출처와 작성자를 함께 적어주시면 감사하겠습니다.
-        </p>
-      </div>
     </div>
 
   </main>
@@ -74,11 +89,11 @@
   <footer class="site-footer">
     <div class="container">
       <div class="social">
+        <a href="https://scholar.google.com/citations?user=gPl6uq4AAAAJ" target="_blank" rel="noopener">Scholar</a> ·
         <a href="https://github.com/hsprofgong-sudo">GitHub</a> ·
-        <a href="mailto:hsprof.gong@gmail.com">Email</a> ·
-        <a href="archive.html">Archive</a>
+        <a href="mailto:hsprof.gong@gmail.com">Email</a>
       </div>
-      <div>© 2026 The Quiet Compiler. Set in Iowan Old Style. Built by hand.</div>
+      <div>© 2026 Jinu Gong · Hansung University · Built by hand.</div>
     </div>
   </footer>
 

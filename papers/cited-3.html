@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compressed Particle-Based Federated Bayesian Learning &amp; Unlearning — Jinu Gong</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title"><a href="../index.html">Jinu Gong</a></h1>
+      <p class="site-subtitle">— research notes &amp; paper reviews —</p>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="../recent.html">Recent</a>
+        <a href="../highlights.html">Highlights</a>
+        <a href="../about.html">About</a>
+        <a href="../archive.html">Publications</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="review">
+      <header class="review-head">
+        <div class="kicker">Highlights · Most Cited #3</div>
+        <h1>Compressed Particle-Based Federated Bayesian Learning and Unlearning</h1>
+        <p class="authors"><em>J. Gong</em>, O. Simeone, J. Kang</p>
+        <p class="venue">IEEE Communications Letters · 2022 · cited 18</p>
+        <div class="badges">
+          <span>Particle-Based FL</span>
+          <span>Compression</span>
+          <span>Communication Efficiency</span>
+          <span>Unlearning</span>
+        </div>
+      </header>
+
+      <div class="review-tldr">
+        <strong>TL;DR</strong>
+        <p>
+          입자 기반 베이지안 연합학습은 표현력이 풍부하지만, 매 라운드마다
+          다수의 입자를 통신해야 한다는 부담이 있다. 본 논문은 입자 통신에
+          양자화(quantization)와 희소화(sparsification)를 결합한 압축 기법을
+          적용해, 통신 비용과 학습/언러닝 품질 사이의 새로운 균형점을 제시한다.
+        </p>
+      </div>
+
+      <h2>1. 출발 — 입자가 비싼 이유</h2>
+      <p>
+        [[cited-1]] (Forget-SVGD)는 다봉 사후분포까지 다룰 수 있다는 점에서
+        강력하지만, 각 라운드에서 클라이언트가 서버로 보내야 하는 정보가
+        “하나의 모델 파라미터”가 아니라 “여러 개의 입자(=여러 개의 모델
+        파라미터)”라는 사실은 통신 비용을 증폭시킨다. 무선 네트워크에서
+        이는 단순한 불편이 아니라, 시스템 자체의 실용성을 결정짓는 요소다.
+      </p>
+
+      <h2>2. 압축 전략</h2>
+      <p>
+        본 논문은 두 가지 압축 축을 결합한다.
+      </p>
+
+      <ul>
+        <li><strong>스칼라 양자화(quantization):</strong> 각 입자의 좌표를 적은 비트 수로
+          표현. 단순한 균일 양자화부터, 분포에 적응적인 양자화까지 고려.</li>
+        <li><strong>희소화(sparsification):</strong> 차원이 큰 모델 파라미터 공간에서
+          기여가 작은 좌표를 0으로 두어, 전송 대상 좌표 수를 줄임.</li>
+      </ul>
+
+      <p>
+        두 압축은 입자 단위로 적용되며, 서버는 압축된 입자 집합을 받아
+        그대로 SVGD 흐름을 진행하거나, 역방향 흐름(Forget-SVGD)을 수행한다.
+        핵심은 “학습”과 “언러닝” 모두에 동일한 압축 파이프라인이 일관되게
+        붙는다는 점이다.
+      </p>
+
+      <pre><code># 라운드별 통신
+client → server :  Compress( {θ_p}_{p=1..P} )     # P개 입자, 압축 전송
+server          :  Apply SVGD or Reverse-SVGD with received particles</code></pre>
+
+      <h2>3. 결과</h2>
+      <ul>
+        <li>높은 압축률에서도, 입자 기반 사후분포의 핵심 통계
+          (평균, 분산, 다봉성)가 잘 보존됨을 실험적으로 확인.</li>
+        <li>같은 통신 예산에서 비압축 기반 점 추정 FL보다 더 풍부한
+          불확실성 정보를 유지하며, 분류 정확도도 경쟁력 있는 수준을 유지.</li>
+        <li>언러닝 시나리오에서도, 압축이 “잊는 능력”을 크게 해치지 않음을 보임.</li>
+      </ul>
+
+      <blockquote>
+        통신은 늘 “정보를 잃는 일”이다. 그러나 어떤 정보를 잃을지를
+        선택할 수 있다면, 잃는 것이 곧 설계의 일부가 된다.
+      </blockquote>
+
+      <h2>4. 의의</h2>
+      <p>
+        이 논문은 베이지안 FL을 “현실의 무선 채널 위에 올리는” 데 필요한
+        다리이다. 표현력 있는 사후분포를 다루면서도, 무선 자원의 현실적
+        제약을 함께 고려한다는 점에서, 통신과 학습의 경계에 선 작업이다.
+        통신 공학자의 직관과 머신러닝 연구자의 어휘를 함께 써야만 도달할
+        수 있는 종류의 결과라고 생각한다.
+      </p>
+
+      <h3>다시 본다면</h3>
+      <p>
+        후속 작업에서는 채널의 상태에 적응적으로 압축 정도를 조절하는
+        <em>채널-적응적 압축</em>이나, 입자 간 정보 중복(redundancy)을
+        활용한 결합 압축(joint compression)을 탐구하고 싶다.
+        실제 무선 채널 위에서의 over-the-air computation과 결합하면, 또
+        다른 흥미로운 영역이 열린다.
+      </p>
+
+      <hr />
+
+      <h2>Cite</h2>
+      <div class="bibtex">@article{gong2022compressed,
+  title   = {Compressed Particle-Based Federated Bayesian Learning and Unlearning},
+  author  = {Gong, Jinu and Simeone, Osvaldo and Kang, Joonhyuk},
+  journal = {IEEE Communications Letters},
+  year    = {2022}
+}</div>
+
+      <div class="review-footer">
+        <a href="../highlights.html">← Back to Highlights</a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="social">
+        <a href="https://scholar.google.com/citations?user=gPl6uq4AAAAJ" target="_blank" rel="noopener">Scholar</a> ·
+        <a href="https://github.com/hsprofgong-sudo">GitHub</a> ·
+        <a href="mailto:hsprof.gong@gmail.com">Email</a>
+      </div>
+      <div>© 2026 Jinu Gong · Hansung University · Built by hand.</div>
+    </div>
+  </footer>
+
+</body>
+</html>

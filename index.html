@@ -3,69 +3,184 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Quiet Compiler — A Technical Journal</title>
-  <meta name="description" content="기술과 사유에 관한 개인 기록. 코드, 시스템, 그리고 그 사이의 여백에 대하여." />
+  <title>Jinu Gong — Research Reviews</title>
+  <meta name="description" content="Jinu Gong (공진우) — Assistant Professor, Hansung University. Federated learning, unlearning, Bayesian learning, 5G/6G." />
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
 
   <header class="site-header">
     <div class="container">
-      <h1 class="site-title"><a href="index.html">The Quiet Compiler</a></h1>
-      <p class="site-subtitle">— a technical journal on code, systems, and the spaces between —</p>
+      <h1 class="site-title"><a href="index.html">Jinu Gong</a></h1>
+      <p class="site-subtitle">— research notes &amp; paper reviews —</p>
       <nav class="site-nav">
         <a href="index.html" class="active">Home</a>
+        <a href="recent.html">Recent</a>
+        <a href="highlights.html">Highlights</a>
         <a href="about.html">About</a>
-        <a href="archive.html">Archive</a>
-        <a href="mailto:hsprof.gong@gmail.com">Contact</a>
+        <a href="archive.html">Publications</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
 
-    <section class="hero">
-      <h2>“프로그래밍이란, 결국 생각을 가장 정직하게 쓰는 방식이다.”</h2>
-      <p>이 블로그는 개발하면서 마주친 문제와 그 너머의 사유를 천천히 정리하는 공간입니다.
-         빠르게 읽히기보다, 오래 곱씹을 만한 글을 지향합니다.</p>
+    <section class="profile">
+      <div class="avatar">JG</div>
+      <div>
+        <h1>Jinu Gong <span style="color: var(--muted); font-weight: 400; font-size: 1.2rem;">공진우</span></h1>
+        <p class="role">Assistant Professor · Hansung University</p>
+        <p class="bio">
+          Federated learning, federated unlearning, Bayesian inference, 그리고
+          5G/6G 무선통신의 보안·성능 분석을 연구합니다. 이 곳에서는 직접 쓴
+          논문들을 다시 읽으며, 그 동기와 한계를 가능한 정직하게 정리합니다.
+        </p>
+        <div class="links">
+          <a href="https://scholar.google.com/citations?user=gPl6uq4AAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+          <a href="https://github.com/hsprofgong-sudo">GitHub</a>
+          <a href="mailto:hsprof.gong@gmail.com">Email</a>
+          <a href="archive.html">All Publications</a>
+        </div>
+      </div>
     </section>
 
-    <h3 class="section-title">Recent Essays</h3>
+    <h2 class="section-title">Research Interests</h2>
+    <div class="interests">
+      <span class="pill">Federated Learning</span>
+      <span class="pill">Federated Unlearning</span>
+      <span class="pill">Bayesian Inference</span>
+      <span class="pill">Variational / SVGD</span>
+      <span class="pill">5G &amp; 6G Wireless</span>
+      <span class="pill">Physical-Layer Security</span>
+      <span class="pill">Trustworthy AI</span>
+    </div>
 
-    <ul class="post-list">
+    <h2 class="section-title">Recent Work</h2>
+    <ul class="paper-list">
+
       <li>
-        <div class="post-meta">2026 · 05 · 20 &nbsp;·&nbsp; Systems</div>
-        <h2 class="post-title"><a href="posts/post-1.html">왜 우리는 여전히 캐시를 이해하지 못하는가</a></h2>
-        <p class="post-excerpt">
-          현대 CPU의 캐시 계층은 단순한 성능 최적화 장치가 아니다. 그것은 우리가 메모리에 대해 가진
-          순진한 직관을 끊임없이 배반하는, 일종의 미시 정치 체계에 가깝다…
+        <div class="paper-meta">
+          <span>2026 · IEEE Wireless Communications Letters</span>
+          <span class="citations">cited 4</span>
+        </div>
+        <h3 class="paper-title">
+          <a href="papers/recent-1.html">Energy-Efficient Secure Communications via Joint Optimization of UAV Trajectory</a>
+        </h3>
+        <p class="paper-authors">S. Kim, <em>J. Gong</em>, J. Kang</p>
+        <p class="paper-venue">IEEE Wireless Communications Letters, 2026</p>
+        <p class="paper-summary">
+          UAV 통신에서 에너지 효율과 비밀(secrecy) 성능을 동시에 끌어올리기 위해
+          궤적과 송신 전력을 결합 최적화한 연구. 무선 보안과 모빌리티의 교차점에 대한 작은 답.
         </p>
+        <div class="paper-actions">
+          <a href="papers/recent-1.html">→ Read review</a>
+        </div>
       </li>
 
       <li>
-        <div class="post-meta">2026 · 05 · 12 &nbsp;·&nbsp; Languages</div>
-        <h2 class="post-title"><a href="posts/post-2.html">타입은 증명이고, 코드는 그 주석이다</a></h2>
-        <p class="post-excerpt">
-          Curry–Howard 대응을 처음 접했을 때의 충격은 여전히 생생하다. 프로그램이 곧 증명이라는
-          이 한 줄의 명제가, 어떻게 우리가 코드를 바라보는 방식을 바꿔놓는가…
+        <div class="paper-meta">
+          <span>2025 · MICCAI Workshop</span>
+          <span class="citations">cited 12</span>
+        </div>
+        <h3 class="paper-title">
+          <a href="papers/recent-2.html">Revisit the Stability of Vanilla Federated Learning under Diverse Conditions</a>
+        </h3>
+        <p class="paper-authors">Y. Lee, <em>J. Gong</em>, S. Choi, J. Kang</p>
+        <p class="paper-venue">MICCAI International Workshop, 2025</p>
+        <p class="paper-summary">
+          “과연 vanilla FedAvg는 정말로 그렇게 약한가?” — 의료 영상 분류 환경에서
+          기본 연합학습의 안정성을 재검토하고, 최근 화려한 변형들이 항상 더 낫지는 않다는 점을 짚는다.
         </p>
+        <div class="paper-actions">
+          <a href="papers/recent-2.html">→ Read review</a>
+        </div>
       </li>
 
       <li>
-        <div class="post-meta">2026 · 04 · 28 &nbsp;·&nbsp; Practice</div>
-        <h2 class="post-title"><a href="posts/post-3.html">읽히는 코드를 쓴다는 것에 대하여</a></h2>
-        <p class="post-excerpt">
-          좋은 코드는 결국 읽는 사람에게 친절하다. 그러나 그 친절함은 짧은 변수명이나 화려한
-          추상화에서 오지 않는다. 그것은 의도의 정직함에서 비롯된다…
+        <div class="paper-meta">
+          <span>2025 · arXiv preprint</span>
+          <span class="citations">cited 9</span>
+        </div>
+        <h3 class="paper-title">
+          <a href="papers/recent-3.html">Exploring Potential Prompt Injection Attacks in Federated Military LLMs</a>
+        </h3>
+        <p class="paper-authors">Y. Lee, T. Park, Y. Lee, <em>J. Gong</em>, J. Kang</p>
+        <p class="paper-venue">arXiv preprint, 2025</p>
+        <p class="paper-summary">
+          연합학습으로 훈련된 군용 LLM이 직면할 수 있는 프롬프트 인젝션 위협을 체계화한다.
+          민감 도메인에서 LLM을 운용할 때, 보안은 더 이상 부차적인 항목이 아니다.
         </p>
+        <div class="paper-actions">
+          <a href="papers/recent-3.html">→ Read review</a>
+        </div>
       </li>
+
     </ul>
 
-    <h3 class="section-title">On Writing Here</h3>
-    <p style="color: var(--ink-soft); font-style: italic;">
-      이 곳의 글은 대체로 짧지 않습니다. 검색 결과의 한 줄이 되기보다는,
-      한 번쯤 차분히 읽고 다시 돌아올 만한 글이 되기를 바랍니다.
-      <br />— 글쓴이 드림.
+    <h2 class="section-title">Most Cited</h2>
+    <ul class="paper-list">
+
+      <li>
+        <div class="paper-meta">
+          <span>2022 · IEEE DSLW</span>
+          <span class="citations">cited 40</span>
+        </div>
+        <h3 class="paper-title">
+          <a href="papers/cited-1.html">Forget-SVGD: Particle-Based Bayesian Federated Unlearning</a>
+        </h3>
+        <p class="paper-authors"><em>J. Gong</em>, J. Kang, O. Simeone, R. Kassab</p>
+        <p class="paper-venue">IEEE Data Science and Learning Workshop, 2022</p>
+        <p class="paper-summary">
+          입자(Particle) 기반 베이지안 추론으로 연합학습 모델에서 “선택적 망각”을 구현하는 방법.
+          잊혀질 권리(right to be forgotten)를 분산학습 위에 올리기 위한 본격적인 시도.
+        </p>
+        <div class="paper-actions">
+          <a href="papers/cited-1.html">→ Read review</a>
+        </div>
+      </li>
+
+      <li>
+        <div class="paper-meta">
+          <span>2021 · arXiv preprint</span>
+          <span class="citations">cited 22</span>
+        </div>
+        <h3 class="paper-title">
+          <a href="papers/cited-2.html">Bayesian Variational Federated Learning and Unlearning in Decentralized Networks</a>
+        </h3>
+        <p class="paper-authors"><em>J. Gong</em>, O. Simeone, J. Kang</p>
+        <p class="paper-venue">arXiv preprint, 2021</p>
+        <p class="paper-summary">
+          중앙 서버 없는 완전 분산 네트워크에서 변분추론 기반의 학습/언러닝을 함께 다룬 초기 작업.
+          이후 Forget-SVGD로 이어지는 흐름의 출발선.
+        </p>
+        <div class="paper-actions">
+          <a href="papers/cited-2.html">→ Read review</a>
+        </div>
+      </li>
+
+      <li>
+        <div class="paper-meta">
+          <span>2022 · IEEE Communications Letters</span>
+          <span class="citations">cited 18</span>
+        </div>
+        <h3 class="paper-title">
+          <a href="papers/cited-3.html">Compressed Particle-Based Federated Bayesian Learning and Unlearning</a>
+        </h3>
+        <p class="paper-authors"><em>J. Gong</em>, O. Simeone, J. Kang</p>
+        <p class="paper-venue">IEEE Communications Letters, 2022</p>
+        <p class="paper-summary">
+          입자 기반 베이지안 FL은 통신 비용이 크다는 약점이 있다.
+          그 비용을 압축(compression)으로 다듬어 통신과 정확도 사이의 새로운 균형점을 찾는다.
+        </p>
+        <div class="paper-actions">
+          <a href="papers/cited-3.html">→ Read review</a>
+        </div>
+      </li>
+
+    </ul>
+
+    <p style="text-align: center; margin-top: 3rem; color: var(--muted); font-style: italic;">
+      — 전체 논문 목록은 <a href="archive.html">Publications</a> 페이지에서 확인할 수 있습니다 —
     </p>
 
   </main>
@@ -73,11 +188,11 @@
   <footer class="site-footer">
     <div class="container">
       <div class="social">
+        <a href="https://scholar.google.com/citations?user=gPl6uq4AAAAJ" target="_blank" rel="noopener">Scholar</a> ·
         <a href="https://github.com/hsprofgong-sudo">GitHub</a> ·
-        <a href="mailto:hsprof.gong@gmail.com">Email</a> ·
-        <a href="archive.html">Archive</a>
+        <a href="mailto:hsprof.gong@gmail.com">Email</a>
       </div>
-      <div>© 2026 The Quiet Compiler. Set in Iowan Old Style. Built by hand.</div>
+      <div>© 2026 Jinu Gong · Hansung University · Built by hand.</div>
     </div>
   </footer>
 

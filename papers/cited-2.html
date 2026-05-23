@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bayesian Variational Federated Learning &amp; Unlearning — Jinu Gong</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title"><a href="../index.html">Jinu Gong</a></h1>
+      <p class="site-subtitle">— research notes &amp; paper reviews —</p>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="../recent.html">Recent</a>
+        <a href="../highlights.html">Highlights</a>
+        <a href="../about.html">About</a>
+        <a href="../archive.html">Publications</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="review">
+      <header class="review-head">
+        <div class="kicker">Highlights · Most Cited #2</div>
+        <h1>Bayesian Variational Federated Learning and Unlearning in Decentralized Networks</h1>
+        <p class="authors"><em>J. Gong</em>, O. Simeone, J. Kang</p>
+        <p class="venue">arXiv preprint · 2021 · cited 22</p>
+        <div class="badges">
+          <span>Decentralized FL</span>
+          <span>Variational Inference</span>
+          <span>Unlearning</span>
+          <span>No Central Server</span>
+        </div>
+      </header>
+
+      <div class="review-tldr">
+        <strong>TL;DR</strong>
+        <p>
+          중앙 서버가 없는 완전 분산(peer-to-peer) 네트워크 위에서,
+          변분 베이지안 추론을 활용해 학습(learning)과 언러닝(unlearning)을
+          하나의 통일된 프레임워크로 다룬다. 이후 [[cited-1]] (Forget-SVGD)와
+          [[cited-3]] (Compressed Particle-Based FL) 라인의 출발점이 된 작업.
+        </p>
+      </div>
+
+      <h2>1. 왜 분산이고, 왜 베이지안인가</h2>
+      <p>
+        전형적인 연합학습은 중앙 서버를 가정한다. 그러나 실제 응용
+        — 차량 간 통신, 군 통신, 센서 네트워크 — 에서는 중앙 서버 자체가
+        병목이자 단일 실패점이다. 동시에 클라이언트 수가 적거나, 데이터가
+        매우 이질적일 때, 단일 점 추정(point estimate)은 과신(overconfidence)에
+        쉽게 빠진다. 베이지안 관점은 이 두 가지 — 분산성과 불확실성 — 를
+        자연스러운 변수로 다루게 해준다.
+      </p>
+
+      <h2>2. 프레임워크</h2>
+      <p>
+        각 노드는 자신의 데이터와 이웃의 변분 사후분포(variational posterior)를
+        기반으로 자신의 분포를 갱신한다. 핵심 갱신식은 다음과 같이 도식화된다.
+      </p>
+
+      <pre><code># 노드 i에서의 변분 사후분포 갱신
+q_i  ←  argmin_q  KL( q ‖ ∏_j p̂_j · p_data_i )
+                  # 이웃 j들의 분포와 자신의 데이터를 함께 반영</code></pre>
+
+      <p>
+        학습은 이 갱신을 통해 사후분포가 분산적으로 합의되는 과정이며,
+        언러닝은 “잊고자 하는 노드 또는 데이터”의 기여를 변분 분포의
+        업데이트에서 역방향으로 제거하는 과정이다. 한 가지 식의 부호만
+        뒤집어도 학습과 언러닝이 같은 골격을 공유한다는 점이, 이 논문의
+        가장 우아한 부분이다.
+      </p>
+
+      <blockquote>
+        학습과 언러닝이 사실 같은 알고리즘의 다른 방향이라는 관찰은,
+        후속 입자 기반 작업(Forget-SVGD)에서 더 분명한 형태로 다시 등장한다.
+      </blockquote>
+
+      <h2>3. 실험과 관찰</h2>
+      <ul>
+        <li>비정형(star/ring/random) 분산 토폴로지 위에서 변분 사후분포가
+          중앙집중식 베이지안 학습에 가까운 분포로 수렴함을 보인다.</li>
+        <li>특정 노드 데이터의 언러닝 후, 사후분포가 “해당 노드가 없었던
+          상태”의 분포와 통계적으로 가까워진다.</li>
+        <li>토폴로지 단절(node dropout) 상황에서도 비교적 견고하게 동작한다.</li>
+      </ul>
+
+      <h2>4. 한계 — 그리고 이어진 작업</h2>
+      <p>
+        가우시안 변분 가족은 다루기 쉽지만, 표현력에 한계가 있다. 복잡한
+        다봉(multi-modal) 사후분포는 이 가족 안에서는 잡히지 않는다.
+        그래서 다음 발걸음은 자연스럽게 입자 기반 표현으로 옮겨갔다 —
+        [[cited-1]] (Forget-SVGD)가 그 결과물이다. 또한 변분 메시지의
+        통신 비용은 그 자체로 또 다른 문제이며, [[cited-3]] (Compressed
+        Particle-Based FL)에서 부분적인 답을 시도했다.
+      </p>
+
+      <h3>다시 본다면</h3>
+      <p>
+        지금 다시 쓴다면, 토폴로지에 따른 수렴 속도와 통신 라운드의
+        관계를 좀 더 명시적인 이론으로 다듬고 싶다. 실험의 깊이보다
+        분석의 깊이가 부족했다는 자기 진단이 있다.
+      </p>
+
+      <hr />
+
+      <h2>Cite</h2>
+      <div class="bibtex">@article{gong2021bayesian,
+  title   = {Bayesian Variational Federated Learning and Unlearning in Decentralized Networks},
+  author  = {Gong, Jinu and Simeone, Osvaldo and Kang, Joonhyuk},
+  journal = {arXiv preprint},
+  year    = {2021}
+}</div>
+
+      <div class="review-footer">
+        <a href="../highlights.html">← Back to Highlights</a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="social">
+        <a href="https://scholar.google.com/citations?user=gPl6uq4AAAAJ" target="_blank" rel="noopener">Scholar</a> ·
+        <a href="https://github.com/hsprofgong-sudo">GitHub</a> ·
+        <a href="mailto:hsprof.gong@gmail.com">Email</a>
+      </div>
+      <div>© 2026 Jinu Gong · Hansung University · Built by hand.</div>
+    </div>
+  </footer>
+
+</body>
+</html>

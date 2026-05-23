@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Energy-Efficient Secure UAV Communications — Jinu Gong</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title"><a href="../index.html">Jinu Gong</a></h1>
+      <p class="site-subtitle">— research notes &amp; paper reviews —</p>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="../recent.html">Recent</a>
+        <a href="../highlights.html">Highlights</a>
+        <a href="../about.html">About</a>
+        <a href="../archive.html">Publications</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="review">
+      <header class="review-head">
+        <div class="kicker">Recent · Paper Review #1</div>
+        <h1>Energy-Efficient Secure Communications via Joint Optimization of UAV Trajectory</h1>
+        <p class="authors">S. Kim, <em>J. Gong</em>, J. Kang</p>
+        <p class="venue">IEEE Wireless Communications Letters · 2026 · cited 4</p>
+        <div class="badges">
+          <span>UAV</span>
+          <span>Physical-Layer Security</span>
+          <span>Trajectory Optimization</span>
+          <span>Energy Efficiency</span>
+        </div>
+      </header>
+
+      <div class="review-tldr">
+        <strong>TL;DR</strong>
+        <p>
+          UAV가 송신원(transmitter)이 되는 통신 시나리오에서, 도청자(eavesdropper)의
+          존재 하에 비밀 전송률(secrecy rate)과 에너지 효율을 동시에 끌어올리도록
+          궤적(trajectory)과 송신 전력을 함께 최적화하는 프레임워크를 제안한다.
+        </p>
+      </div>
+
+      <h2>1. 왜 이 문제인가</h2>
+      <p>
+        UAV(무인기) 기반 무선 통신은 6G 시대의 유망한 인프라로 자주 언급된다.
+        그러나 UAV는 두 가지 제약을 동시에 가진다 — 배터리 용량이 한정되어
+        있고, 공중에서의 무선 신호는 지상보다 더 “들리기 쉽다”. 즉, 도청에
+        취약하다. 두 제약을 따로 다루는 연구는 많지만, 그 둘을 동시에 다루지
+        않으면 한 쪽을 풀자마자 다른 쪽이 무너지는 경우가 흔하다.
+      </p>
+
+      <h2>2. 접근 방법</h2>
+      <p>
+        본 논문은 UAV의 비행 궤적과 송신 전력 프로파일을 결합 변수로 두고,
+        다음과 같은 비볼록(non-convex) 최적화 문제를 푼다.
+      </p>
+
+      <pre><code>maximize   ∑_t  R_sec(t)           // 시간 평균 secrecy rate
+subject to ∑_t  P_tx(t) · Δt ≤ E_max  // 에너지 예산
+           UAV 궤적 제약 (속도, 위치)
+           UAV 위치 ↔ 송수신자/도청자 거리 채널 모델</code></pre>
+
+      <p>
+        문제 자체는 결합 변수 때문에 닫힌 형태의 해를 허용하지 않는다. 대신
+        연속 볼록 근사(Successive Convex Approximation, SCA)와 블록 좌표 강하
+        (BCD)를 결합하여, 각 라운드에서 한쪽 변수를 고정한 채 다른 쪽을
+        볼록 부문제로 풀어내는 방식으로 수렴을 유도한다.
+      </p>
+
+      <blockquote>
+        “움직이는 송신원”이라는 단순한 사실 하나가, 보안과 에너지 사이의
+        결합을 만들어낸다. 도청자에게서 멀어지는 동시에, 수신자에게는 충분히
+        가까워야 하며, 그 모든 이동에는 배터리가 든다.
+      </blockquote>
+
+      <h2>3. 주요 결과</h2>
+      <ul>
+        <li>고정 궤적/고정 전력 기반 베이스라인 대비, 동일 에너지 예산 하에서
+          평균 secrecy rate가 유의미하게 향상된다.</li>
+        <li>도청자가 여러 명인 다중 도청자(multi-eavesdropper) 시나리오에서도
+          일관된 개선을 보인다.</li>
+        <li>제안 알고리즘은 비교적 적은 반복 횟수 안에 수렴하며, 실제
+          온보드 컴퓨팅 자원으로 실현 가능한 수준의 복잡도를 유지한다.</li>
+      </ul>
+
+      <h2>4. 한계와 앞으로의 작업</h2>
+      <p>
+        결합 최적화는 강력하지만, 본 논문이 가정하는 채널 모델은 비교적
+        단순한 LoS(line-of-sight)에 의존한다. 실제 도심 환경에서는 다중경로와
+        장애물에 의한 음영(shadowing)이 훨씬 더 큰 변수가 될 수 있다. 또한
+        도청자의 위치를 정확히 알 수 없는 상황에서의 강건성(robustness)은
+        후속 연구로 남겨두었다.
+      </p>
+
+      <h3>다시 본다면</h3>
+      <p>
+        지금 다시 쓴다면, 채널 추정 불확실성을 분포 단위로 다루는
+        <em>분포적으로 강건한(distributionally robust)</em> 정식화나, 다수의
+        UAV가 협력하는 멀티-UAV 시나리오로의 확장이 자연스러운 다음 걸음일 것이다.
+      </p>
+
+      <hr />
+
+      <h2>Cite</h2>
+      <div class="bibtex">@article{kim2026uav,
+  title   = {Energy-Efficient Secure Communications via Joint Optimization of UAV Trajectory},
+  author  = {Kim, S. and Gong, J. and Kang, J.},
+  journal = {IEEE Wireless Communications Letters},
+  year    = {2026}
+}</div>
+
+      <div class="review-footer">
+        <a href="../recent.html">← Back to Recent</a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="social">
+        <a href="https://scholar.google.com/citations?user=gPl6uq4AAAAJ" target="_blank" rel="noopener">Scholar</a> ·
+        <a href="https://github.com/hsprofgong-sudo">GitHub</a> ·
+        <a href="mailto:hsprof.gong@gmail.com">Email</a>
+      </div>
+      <div>© 2026 Jinu Gong · Hansung University · Built by hand.</div>
+    </div>
+  </footer>
+
+</body>
+</html>

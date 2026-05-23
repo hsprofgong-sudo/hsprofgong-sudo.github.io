@@ -1,4 +1,4 @@
-/* ===== Academic / Classic Tech Blog Theme ===== */
+/* ===== Academic / Classic Researcher Homepage Theme ===== */
 
 :root {
   --bg: #fbfaf6;
@@ -10,7 +10,8 @@
   --accent: #7a1f1f;
   --accent-soft: #9a3a3a;
   --code-bg: #f1ede2;
-  --max-width: 760px;
+  --tag-bg: #efeada;
+  --max-width: 820px;
 }
 
 * { box-sizing: border-box; }
@@ -52,13 +53,13 @@ a:hover {
 
 header.site-header {
   border-bottom: 1px solid var(--rule);
-  padding: 2.5rem 0 1.5rem;
-  margin-bottom: 3rem;
+  padding: 2.5rem 0 1.4rem;
+  margin-bottom: 2.5rem;
   text-align: center;
 }
 
 header.site-header .site-title {
-  font-size: 2.6rem;
+  font-size: 2.4rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   margin: 0;
@@ -73,17 +74,17 @@ header.site-header .site-title a {
 header.site-header .site-subtitle {
   font-style: italic;
   color: var(--muted);
-  margin: 0.4rem 0 1.2rem;
-  font-size: 1.05rem;
+  margin: 0.4rem 0 1.1rem;
+  font-size: 1rem;
 }
 
 nav.site-nav {
-  margin-top: 0.6rem;
+  margin-top: 0.5rem;
 }
 
 nav.site-nav a {
-  margin: 0 0.85rem;
-  font-size: 0.95rem;
+  margin: 0 0.7rem;
+  font-size: 0.9rem;
   color: var(--ink-soft);
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -96,199 +97,352 @@ nav.site-nav a:hover {
   border-bottom-color: var(--accent);
 }
 
-/* ===== Hero / Intro ===== */
+/* ===== Profile / Hero ===== */
 
-.hero {
-  text-align: center;
-  margin-bottom: 3rem;
-  padding: 0 0 2rem;
+.profile {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 2rem;
+  align-items: start;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
   border-bottom: 1px double var(--rule);
 }
 
-.hero h2 {
-  font-size: 1.5rem;
+.profile .avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #efeada 0%, #d8d4c4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Iowan Old Style", Georgia, serif;
+  font-size: 3.4rem;
+  color: var(--accent);
+  font-weight: 700;
+  border: 1px solid var(--rule);
+  font-variant: small-caps;
+  letter-spacing: -0.02em;
+}
+
+.profile h1 {
+  margin: 0 0 0.2rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.profile .role {
   font-style: italic;
-  font-weight: 400;
-  color: var(--ink-soft);
-  margin: 0 0 0.8rem;
-}
-
-.hero p {
   color: var(--muted);
+  margin: 0 0 0.8rem;
   font-size: 1.05rem;
-  max-width: 540px;
-  margin: 0 auto;
 }
 
-/* ===== Post list ===== */
+.profile .bio {
+  margin: 0 0 1rem;
+  color: var(--ink-soft);
+}
+
+.profile .links a {
+  margin-right: 0.9rem;
+  font-size: 0.92rem;
+  font-family: "Optima", "Gill Sans", sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* ===== Section title ===== */
 
 .section-title {
-  font-size: 1rem;
+  font-size: 0.95rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   color: var(--muted);
   border-bottom: 1px solid var(--rule);
   padding-bottom: 0.4rem;
-  margin: 3rem 0 1.5rem;
+  margin: 2.5rem 0 1.4rem;
   font-family: "Optima", "Gill Sans", sans-serif;
+  text-align: center;
 }
 
-.post-list {
+.section-title::before,
+.section-title::after {
+  content: "❦";
+  color: var(--accent);
+  font-size: 0.85rem;
+  margin: 0 0.7rem;
+  opacity: 0.7;
+}
+
+/* ===== Research interest pills ===== */
+
+.interests {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.interests .pill {
+  display: inline-block;
+  padding: 0.25rem 0.8rem;
+  margin: 0.2rem;
+  background: var(--tag-bg);
+  border: 1px solid var(--rule);
+  font-family: "Optima", "Gill Sans", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  border-radius: 2px;
+}
+
+/* ===== Paper list ===== */
+
+.paper-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.post-list li {
+.paper-list li {
   padding: 1.4rem 0;
   border-bottom: 1px solid var(--rule);
 }
 
-.post-list li:last-child {
+.paper-list li:last-child {
   border-bottom: none;
 }
 
-.post-list .post-meta {
-  font-size: 0.85rem;
+.paper-meta {
+  font-size: 0.82rem;
   color: var(--muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-family: "Optima", "Gill Sans", sans-serif;
   margin-bottom: 0.3rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.post-list .post-title {
-  font-size: 1.4rem;
-  margin: 0.1rem 0 0.5rem;
+.paper-meta .citations {
+  color: var(--accent);
   font-weight: 600;
 }
 
-.post-list .post-title a {
+.paper-title {
+  font-size: 1.25rem;
+  margin: 0.2rem 0 0.4rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.paper-title a {
   color: var(--ink);
   border-bottom: none;
 }
 
-.post-list .post-title a:hover {
+.paper-title a:hover {
   color: var(--accent);
 }
 
-.post-list .post-excerpt {
+.paper-authors {
+  font-style: italic;
   color: var(--ink-soft);
-  margin: 0;
-  font-size: 1rem;
+  margin: 0.1rem 0 0.4rem;
+  font-size: 0.95rem;
 }
 
-/* ===== Article / Post page ===== */
-
-article.post {
-  padding: 1rem 0 3rem;
+.paper-authors em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
 }
 
-article.post header {
+.paper-venue {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin: 0 0 0.5rem;
+}
+
+.paper-summary {
+  color: var(--ink-soft);
+  margin: 0.5rem 0 0;
+  font-size: 0.98rem;
+}
+
+.paper-actions {
+  margin-top: 0.6rem;
+  font-family: "Optima", "Gill Sans", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+
+.paper-actions a {
+  margin-right: 1.1rem;
+}
+
+/* ===== Review / paper page ===== */
+
+article.review {
+  padding: 0.5rem 0 3rem;
+}
+
+article.review header.review-head {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.2rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--rule);
 }
 
-article.post header h1 {
-  font-size: 2.2rem;
-  line-height: 1.25;
-  margin: 0 0 0.6rem;
-  font-weight: 700;
-}
-
-article.post header .meta {
-  color: var(--muted);
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+article.review header.review-head .kicker {
   font-family: "Optima", "Gill Sans", sans-serif;
-}
-
-article.post p {
-  margin: 0 0 1.2rem;
-  text-align: justify;
-  hyphens: auto;
-}
-
-article.post p:first-of-type::first-letter {
-  font-size: 3.4rem;
-  float: left;
-  line-height: 1;
-  padding: 0.3rem 0.6rem 0 0;
-  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.78rem;
   color: var(--accent);
-  font-family: "Iowan Old Style", Georgia, serif;
+  margin-bottom: 0.7rem;
 }
 
-article.post h2 {
-  font-size: 1.5rem;
-  margin: 2.4rem 0 0.8rem;
+article.review header.review-head h1 {
+  font-size: 1.85rem;
+  line-height: 1.3;
+  margin: 0 0 0.7rem;
+  font-weight: 700;
+}
+
+article.review header.review-head .authors {
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 0.2rem 0;
+}
+
+article.review header.review-head .venue {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin: 0.2rem 0 0.8rem;
+}
+
+article.review header.review-head .badges span {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  margin: 0.2rem;
+  background: var(--tag-bg);
+  border: 1px solid var(--rule);
+  font-family: "Optima", "Gill Sans", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+article.review h2 {
+  font-size: 1.35rem;
+  margin: 2.2rem 0 0.7rem;
   border-bottom: 1px solid var(--rule);
   padding-bottom: 0.3rem;
 }
 
-article.post h3 {
-  font-size: 1.2rem;
-  margin: 1.8rem 0 0.6rem;
+article.review h3 {
+  font-size: 1.1rem;
+  margin: 1.5rem 0 0.5rem;
   font-style: italic;
 }
 
-article.post blockquote {
+article.review p {
+  margin: 0 0 1.1rem;
+  text-align: justify;
+  hyphens: auto;
+}
+
+article.review blockquote {
   border-left: 3px solid var(--accent);
-  margin: 1.5rem 0;
-  padding: 0.4rem 1.2rem;
+  margin: 1.3rem 0;
+  padding: 0.4rem 1.1rem;
   color: var(--ink-soft);
   font-style: italic;
   background: rgba(122, 31, 31, 0.03);
 }
 
-article.post code {
+article.review code {
   font-family: "SF Mono", "Menlo", Consolas, monospace;
   background: var(--code-bg);
-  padding: 0.1rem 0.35rem;
+  padding: 0.1rem 0.3rem;
   border-radius: 3px;
   font-size: 0.9em;
 }
 
-article.post pre {
+article.review pre {
   background: var(--code-bg);
   border: 1px solid var(--rule);
   border-radius: 4px;
-  padding: 1rem 1.2rem;
+  padding: 0.9rem 1.1rem;
   overflow-x: auto;
-  font-size: 0.9rem;
-  line-height: 1.55;
+  font-size: 0.88rem;
 }
 
-article.post pre code {
+article.review pre code {
   background: transparent;
   padding: 0;
 }
 
-article.post ul, article.post ol {
-  margin: 0 0 1.2rem;
-  padding-left: 1.6rem;
+article.review ul, article.review ol {
+  margin: 0 0 1.1rem;
+  padding-left: 1.5rem;
 }
 
-article.post li {
+article.review li {
+  margin-bottom: 0.35rem;
+}
+
+article.review hr {
+  border: none;
+  text-align: center;
+  margin: 2.2rem 0;
+}
+
+article.review hr::after {
+  content: "❦";
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+
+.review-tldr {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  padding: 1rem 1.3rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.review-tldr strong {
+  display: block;
+  font-family: "Optima", "Gill Sans", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  color: var(--accent);
   margin-bottom: 0.4rem;
 }
 
-article.post hr {
-  border: none;
-  text-align: center;
-  margin: 2.5rem 0;
+.review-tldr p {
+  margin: 0;
+  text-align: left;
 }
 
-article.post hr::after {
-  content: "❦";
-  color: var(--accent);
-  font-size: 1.3rem;
+.bibtex {
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  padding: 0.9rem 1.1rem;
+  font-family: "SF Mono", "Menlo", Consolas, monospace;
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  margin-top: 0.8rem;
 }
 
-.post-footer {
+.review-footer {
   margin-top: 3rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--rule);
@@ -304,7 +458,7 @@ article.post hr::after {
 .about-page h1 {
   font-size: 2rem;
   text-align: center;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
 }
 
 .about-page .lead {
@@ -317,8 +471,8 @@ article.post hr::after {
 .about-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  gap: 1.3rem;
+  margin-top: 1.5rem;
 }
 
 .about-card {
@@ -329,7 +483,7 @@ article.post hr::after {
 
 .about-card h3 {
   margin: 0 0 0.6rem;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-variant: small-caps;
   letter-spacing: 0.08em;
   color: var(--accent);
@@ -338,7 +492,7 @@ article.post hr::after {
 .about-card p, .about-card ul {
   margin: 0;
   color: var(--ink-soft);
-  font-size: 0.98rem;
+  font-size: 0.97rem;
 }
 
 .about-card ul {
@@ -353,25 +507,28 @@ footer.site-footer {
   border-top: 1px solid var(--rule);
   text-align: center;
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-family: "Optima", "Gill Sans", sans-serif;
   letter-spacing: 0.08em;
 }
 
 footer.site-footer .social {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
 }
 
 footer.site-footer .social a {
-  margin: 0 0.6rem;
+  margin: 0 0.5rem;
   color: var(--ink-soft);
 }
 
 /* ===== Responsive ===== */
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   html { font-size: 16px; }
-  header.site-header .site-title { font-size: 2rem; }
-  article.post header h1 { font-size: 1.7rem; }
-  nav.site-nav a { margin: 0 0.5rem; font-size: 0.85rem; }
+  header.site-header .site-title { font-size: 1.9rem; }
+  .profile { grid-template-columns: 1fr; text-align: center; gap: 1.2rem; }
+  .profile .avatar { margin: 0 auto; width: 110px; height: 110px; font-size: 2.6rem; }
+  article.review header.review-head h1 { font-size: 1.5rem; }
+  nav.site-nav a { margin: 0 0.4rem; font-size: 0.8rem; }
+  .paper-meta { flex-direction: column; gap: 0.1rem; }
 }

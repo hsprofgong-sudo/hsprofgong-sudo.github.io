@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Injection Attacks in Federated Military LLMs — Jinu Gong</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title"><a href="../index.html">Jinu Gong</a></h1>
+      <p class="site-subtitle">— research notes &amp; paper reviews —</p>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="../recent.html">Recent</a>
+        <a href="../highlights.html">Highlights</a>
+        <a href="../about.html">About</a>
+        <a href="../archive.html">Publications</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="review">
+      <header class="review-head">
+        <div class="kicker">Recent · Paper Review #3</div>
+        <h1>Exploring Potential Prompt Injection Attacks in Federated Military LLMs</h1>
+        <p class="authors">Y. Lee, T. Park, Y. Lee, <em>J. Gong</em>, J. Kang</p>
+        <p class="venue">arXiv preprint · 2025 · cited 9</p>
+        <div class="badges">
+          <span>LLM Security</span>
+          <span>Prompt Injection</span>
+          <span>Federated LLM</span>
+          <span>Threat Modeling</span>
+        </div>
+      </header>
+
+      <div class="review-tldr">
+        <strong>TL;DR</strong>
+        <p>
+          연합학습으로 미세조정되는 군용(military) LLM이 직면할 수 있는
+          프롬프트 인젝션 공격 양상을 체계적으로 분류·시연한다. 일반
+          웹 환경에서 알려진 공격이 분산 학습 파이프라인 위에서는
+          어떤 새로운 양상을 띠는지를 보여주며, 방어선의 위치에 대한
+          질문을 던진다.
+        </p>
+      </div>
+
+      <h2>1. 왜 “연합 + 군용 + LLM” 인가</h2>
+      <p>
+        군용 LLM은 그 특성상 데이터 공유가 제약된다. 부대별, 작전별로
+        데이터가 격리되어 있어 중앙집중식 학습이 어렵고, 연합학습은
+        자연스러운 해결책이 된다. 그러나 분산은 곧 표면적의 확장이다.
+        클라이언트 수만큼 공격 진입점이 늘어나며, 그 중 일부가 적대적
+        프롬프트를 학습 데이터에 섞을 수 있다면, 어떤 일이 벌어질까?
+      </p>
+
+      <h2>2. 위협 모델</h2>
+      <ul>
+        <li><strong>데이터 측 공격(Data-side):</strong> 클라이언트가 보유한 미세조정용 코퍼스에 악성 프롬프트/응답 쌍을 주입한다.</li>
+        <li><strong>모델 측 공격(Model-side):</strong> 로컬 모델 업데이트에 미세한 편향을 심어, 특정 트리거에서 의도된 출력을 유도한다.</li>
+        <li><strong>추론 시점 공격(Inference-time):</strong> 최종 배포된 모델에 대해 일반적인 프롬프트 인젝션을 시도한다.</li>
+      </ul>
+
+      <blockquote>
+        분산 학습 환경에서 “신뢰할 수 있는 데이터”라는 가정은,
+        대부분 신뢰할 수 있다고 “믿기로 한” 데이터에 더 가깝다.
+      </blockquote>
+
+      <h2>3. 시연 사례</h2>
+      <p>
+        본 연구는 가상의 군 시나리오 — 예컨대 작전 보고서 요약,
+        정찰 데이터 분류 — 를 토대로 위 세 가지 공격을 모사한다.
+        각 공격은 적은 비율의 오염된 클라이언트만으로도, 특정 트리거
+        하에서 LLM의 출력을 의도된 방향으로 왜곡할 수 있음을 보여준다.
+        놀라운 점은, 평균적인 평가 지표에서는 모델이 거의 정상으로
+        보인다는 사실이다.
+      </p>
+
+      <h2>4. 방어를 어디에 둘 것인가</h2>
+      <p>
+        가능한 방어 지점은 여러 곳이다 — 클라이언트 측 데이터 필터링,
+        업데이트 단계에서의 비잔틴 강건 집계(Byzantine-robust aggregation),
+        그리고 배포 후 추론 시점의 가드레일. 본 논문은 이들 중 어느
+        한 곳에 방어를 몰아두는 것은 위험하다고 주장하며, 다층적
+        방어(defense-in-depth)의 필요성을 강조한다.
+      </p>
+
+      <h3>다시 본다면</h3>
+      <p>
+        “위협 모델링” 논문의 미덕은 답을 주는 것이 아니라, 정확한
+        질문을 만드는 것이다. 후속 작업에서는 시연 수준을 넘어
+        정량적 위협 평가 프레임워크 — 즉, 어떤 공격이 어떤 조건에서
+        얼마나 성공하는지를 재현 가능하게 보고하는 표준 — 를 만드는 데
+        집중하고자 한다.
+      </p>
+
+      <hr />
+
+      <h2>Cite</h2>
+      <div class="bibtex">@article{lee2025promptinjection,
+  title   = {Exploring Potential Prompt Injection Attacks in Federated Military LLMs},
+  author  = {Lee, Y. and Park, T. and Lee, Y. and Gong, J. and Kang, J.},
+  journal = {arXiv preprint},
+  year    = {2025}
+}</div>
+
+      <div class="review-footer">
+        <a href="../recent.html">← Back to Recent</a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="social">
+        <a href="https://scholar.google.com/citations?user=gPl6uq4AAAAJ" target="_blank" rel="noopener">Scholar</a> ·
+        <a href="https://github.com/hsprofgong-sudo">GitHub</a> ·
+        <a href="mailto:hsprof.gong@gmail.com">Email</a>
+      </div>
+      <div>© 2026 Jinu Gong · Hansung University · Built by hand.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
